@@ -2,7 +2,7 @@
   "generator-fullstack-app": {
     "appName": "jtbt2-fav-color",
     "repoName": "my-byu-app",
-    "awsAccountDev": "byu-oit-fullstack-trn",
+    "awsAccountDev": "byu-out-fullstack-trn",
     "awsAccountPrd": "byu-oit-fullstack-trn",
     "awsAccountDevNumber": "863362256468",
     "awsAccountPrdNumber": "863362256468",

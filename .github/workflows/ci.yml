@@ -21,8 +21,8 @@ jobs:
             "env":[
               {
                 "tf_working_dir":"./iac/dev/app",
-                "aws_key_name":"byu_oit_fullstack_trn_key",
-                "aws_secret_name":"byu_oit_fullstack_trn_secret"
+                "aws_key_name":"byu_out_fullstack_trn_key",
+                "aws_secret_name":"byu_out_fullstack_trn_secret"
               }
             ]
           }'
@@ -35,8 +35,8 @@ jobs:
             "env":[
               {
                 "tf_working_dir":"./iac/stg/app",
-                "aws_key_name":"byu_oit_fullstack_trn_key",
-                "aws_secret_name":"byu_oit_fullstack_trn_secret"
+                "aws_key_name":"byu_out_fullstack_trn_key",
+                "aws_secret_name":"byu_out_fullstack_trn_secret"
               }
             ]
           }'
