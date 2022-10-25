@@ -1,20 +1,121 @@
 openapi: 3.0.3
 info:
-  title: <%= appName %>
-  description: <%= appName %>
+  title: jtbt2-fav-color
+  description: An API for favorite colors
+  contact:
+    name: Jason Tan
+    email: jtbt1999@go.byuh.edu
   version: 1.0.0
 
 paths:
-  /foo:
-    x-controller: foo
+  /:
+    x-controller: main
     get:
-      x-operation: getFoo
+      description: List favorite colors (can filter by color)
+      x-operation: listFavoriteColors()
       responses:
         200:
-          description: foo bar
+          description: PersonFavoriteColor[]
           content:
             application/json:
               schema:
-                properties:
-                  bar:
-                    type: string
+                $ref: '#/components/schemas/PersonFavoriteColor'
+    post:
+      summary: Add a new student's favorite color
+      x-operation: addFavoriteColor()
+      requestBody:
+        description: byuId, favoriteColor
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/favoriteColorObjectById'
+        required: true
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+
+  /{byuId}:
+    x-controller: byuId
+    parameters:
+      - $ref: '#/components/parameters/byuIdParam'
+    get:
+      description: Get student's favorite color
+      x-operation: getFavoriteColor()
+      responses:
+        200:
+          description: PersonFavoriteColor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/favoriteColorObject'
+
+    put:
+      description: Update student's favorite color
+      x-operation: updateFavoriteColor()
+      requestBody:
+        description: favoriteColor
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/favoriteColorObject'
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+    delete:
+      description: Remove student's favorite color
+      x-operation: removeFavoriteColor()
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+components:
+  parameters:
+    byuIdParam:
+      name: byuId
+      in: path
+      description: A BYU ID
+      required: true
+      schema:
+        type: string
+        pattern: '^\d{9}$'
+  schemas:
+    byuId:
+      type: string
+      example: '123456789'
+    favoriteColor:
+      type: string
+      example: 'red'
+    favoriteColorObject:
+      type: object
+      properties:
+        favoriteColor:
+          $ref: '#/components/schemas/favoriteColor'
+    favoriteColorObjectById:
+      type: object
+      properties:
+        byuId:
+          $ref: '#/components/schemas/byuId'
+        favoriteColor:
+          $ref: '#/components/schemas/favoriteColor'
+    PersonFavoriteColor:
+      type: array
+      items:
+        $ref: '#/components/schemas/favoriteColorObjectById'
+    response:
+      type: object
+      properties:
+        result:
+          type: string
+          example: 'success'
