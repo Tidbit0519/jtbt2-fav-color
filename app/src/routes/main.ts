@@ -3,19 +3,14 @@ import { Request, Response } from 'express'
 
 export default function (): RouteControllerMap {
   return {
-    async getFavoriteColor (req: Request, res: Response) {
+    async listFavoriteColors (req: Request, res: Response) {
       res.enforcer?.send({
-        favoriteColor: 'blue'
+        result: ['red', 'green']
       })
     },
-
-    async updateFavoriteColor (req: Request, res: Response) {
-      res.enforcer?.send({
-        result: 'success'
-      })
-    },
-
-    async removeFavoriteColor (req: Request, res: Response) {
+    async addFavoriteColor (req: Request, res: Response) {
+      const personFavoriteColor: string = req.enforcer?.body.favoriteColor
+      const byuId: string = req.enforcer?.body.byuId
       res.enforcer?.send({
         result: 'success'
       })
