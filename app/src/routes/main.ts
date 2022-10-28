@@ -9,8 +9,6 @@ export default function (): RouteControllerMap {
       })
     },
     async addFavoriteColor (req: Request, res: Response) {
-      const personFavoriteColor: string = req.enforcer?.body.favoriteColor
-      const byuId: string = req.enforcer?.body.byuId
       res.enforcer?.send({
         result: 'success'
       })

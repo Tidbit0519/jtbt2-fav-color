@@ -5,8 +5,8 @@ import path from 'path'
 import { logger } from './index'
 import foo from './routes/foo'
 import { LoggerMiddleware } from '@byu-oit/express-logger'
-import main from "./routes/main";
-import byuId from "./routes/byuId";
+import main from './routes/main'
+import byuId from './routes/byuId'
 
 export default async function server (): Promise<Application> {
   const app = express()
