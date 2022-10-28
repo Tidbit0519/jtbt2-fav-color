@@ -121,9 +121,9 @@ jobs:
         working-directory: app
         run: npm run lint
 
-      - name: Test
-        working-directory: app
-        run: npm test
+#      - name: Test
+#        working-directory: app
+#        run: npm test
 
       - name: Report test coverage to Codecov
         uses: codecov/codecov-action@v3

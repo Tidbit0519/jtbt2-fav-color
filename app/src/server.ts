@@ -5,6 +5,8 @@ import path from 'path'
 import { logger } from './index'
 import foo from './routes/foo'
 import { LoggerMiddleware } from '@byu-oit/express-logger'
+import main from "./routes/main";
+import byuId from "./routes/byuId";
 
 export default async function server (): Promise<Application> {
   const app = express()
@@ -34,7 +36,9 @@ export default async function server (): Promise<Application> {
 
   // Tell the route builder to handle routing requests.
   app.use(enforcerMiddleware.route({
-    foo: foo()
+    foo: foo(),
+    main: main(),
+    byuId: byuId()
   }))
 
   return app

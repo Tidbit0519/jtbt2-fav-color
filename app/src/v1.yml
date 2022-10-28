@@ -2,27 +2,39 @@ openapi: 3.0.3
 info:
   title: jtbt2-fav-color
   description: An API for favorite colors
-  contact:
-    name: Jason Tan
-    email: jtbt1999@go.byuh.edu
   version: 1.0.0
 
+x-mock-implemented: true
 paths:
+  /foo:
+    x-controller: foo
+    get:
+      x-operation: getFoo
+      responses:
+        200:
+          description: foo bar
+          content:
+            application/json:
+              schema:
+                properties:
+                  bar:
+                    type: string
+
   /:
     x-controller: main
     get:
       description: List favorite colors (can filter by color)
-      x-operation: listFavoriteColors()
+      x-operation: listFavoriteColors
       responses:
         200:
           description: PersonFavoriteColor[]
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PersonFavoriteColor'
+                $ref: '#/components/schemas/FavoriteColorList'
     post:
       summary: Add a new student's favorite color
-      x-operation: addFavoriteColor()
+      x-operation: addFavoriteColor
       requestBody:
         description: byuId, favoriteColor
         content:
@@ -37,14 +49,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/response'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
 
   /{byuId}:
     x-controller: byuId
-    parameters:
-      - $ref: '#/components/parameters/byuIdParam'
     get:
       description: Get student's favorite color
-      x-operation: getFavoriteColor()
+      x-operation: getFavoriteColor
+      parameters:
+        - $ref: '#/components/parameters/byuIdParam'
       responses:
         200:
           description: PersonFavoriteColor
@@ -52,10 +70,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/favoriteColorObject'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
 
     put:
       description: Update student's favorite color
-      x-operation: updateFavoriteColor()
+      x-operation: updateFavoriteColor
+      parameters:
+        - $ref: '#/components/parameters/byuIdParam'
       requestBody:
         description: favoriteColor
         required: true
@@ -70,9 +96,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/response'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
     delete:
       description: Remove student's favorite color
-      x-operation: removeFavoriteColor()
+      x-operation: removeFavoriteColor
+      parameters:
+        - $ref: '#/components/parameters/byuIdParam'
       responses:
         200:
           description: success
@@ -80,16 +114,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/response'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+
 components:
-  parameters:
-    byuIdParam:
-      name: byuId
-      in: path
-      description: A BYU ID
-      required: true
-      schema:
-        type: string
-        pattern: '^\d{9}$'
   schemas:
     byuId:
       type: string
@@ -109,7 +141,7 @@ components:
           $ref: '#/components/schemas/byuId'
         favoriteColor:
           $ref: '#/components/schemas/favoriteColor'
-    PersonFavoriteColor:
+    FavoriteColorList:
       type: array
       items:
         $ref: '#/components/schemas/favoriteColorObjectById'
@@ -119,3 +151,11 @@ components:
         result:
           type: string
           example: 'success'
+  parameters:
+    byuIdParam:
+      name: byuId
+      in: path
+      description: a BYU Id
+      required: true
+      schema:
+        $ref: '#/components/schemas/byuId'
