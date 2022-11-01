@@ -23,8 +23,8 @@ jobs:
                 "environment_name":"dev",
                 "ecr_repo_name":"jtbt2-fav-color-dev",
                 "tf_working_dir":"./iac/dev/app",
-                "aws_key_name":"byu_out_fullstack_trn_key",
-                "aws_secret_name":"byu_out_fullstack_trn_secret",
+                "aws_key_name":"byu_oit_fullstack_trn_key",
+                "aws_secret_name":"byu_oit_fullstack_trn_secret",
                 "rfc_key_name":"standard_change_sandbox_client_key",
                 "rfc_secret_name":"standard_change_sandbox_client_secret",
                 "rfc_template_id":"Codepipeline-Standard-Change"

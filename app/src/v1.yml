@@ -27,11 +27,17 @@ paths:
       x-operation: listFavoriteColors
       responses:
         200:
-          description: PersonFavoriteColor[]
+          description: PersonFavoriteColor
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/FavoriteColorList'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
     post:
       summary: Add a new student's favorite color
       x-operation: addFavoriteColor
