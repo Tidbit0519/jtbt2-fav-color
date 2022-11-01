@@ -9,7 +9,7 @@ async function run (): Promise<void> {
   app.listen(8080, () => {
     logger.info('listening on port 8080')
   }).on('error', err => {
-    logger.error({ err }, 'Error starting the app!')
+    logger.error({ err }, 'Error starting the app')
   })
 }
 
