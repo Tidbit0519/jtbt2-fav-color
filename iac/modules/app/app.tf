@@ -36,7 +36,7 @@ module "acs" {
 }
 
 module "my_fargate_api" {
-  source                           = "github.com/byu-oit/terraform-aws-fargate-api?ref=v4.0.0"
+  source                           = "github.com/byu-oit/terraform-aws-fargate-api?ref=v4.0.1"
   app_name                         = "${local.repo_name}-${var.env}"
   container_port                   = 8080
   health_check_path                = "/health"
@@ -53,15 +53,15 @@ module "my_fargate_api" {
   tags                             = local.tags
 
   primary_container_definition = {
-    name                  = "${local.repo_name}-${var.env}"
-    image                 = "${data.aws_ecr_repository.my_ecr_repo.repository_url}:${var.image_tag}"
-    ports                 = [8080]
-      environment_variables = {
-        dynamo_table_name = aws_dynamodb_table.jtbt2-fav-color-dev.name
-      }
-    secrets               = {}
-    efs_volume_mounts     = null
-    ulimits               = null
+    name  = "${local.repo_name}-${var.env}"
+    image = "${data.aws_ecr_repository.my_ecr_repo.repository_url}:${var.image_tag}"
+    ports = [8080]
+    environment_variables = {
+      dynamo_table_name = aws_dynamodb_table.jtbt2-fav-color-dev.name
+    }
+    secrets           = {}
+    efs_volume_mounts = null
+    ulimits           = null
   }
 
   autoscaling_config = {
@@ -84,8 +84,8 @@ module "my_fargate_api" {
 // Then include the task policies and any env variables or secrets into the fargate module
 
 resource "aws_dynamodb_table" "jtbt2-fav-color-dev" {
-  hash_key = "byuId"
-  name     = "${local.repo_name}-${var.env}"
+  hash_key     = "byuId"
+  name         = "${local.repo_name}-${var.env}"
   billing_mode = "PAY_PER_REQUEST"
   attribute {
     name = "byuId"
