@@ -93,8 +93,8 @@ resource "aws_dynamodb_table" "jtbt2-fav-color-dev" {
   }
 }
 resource "aws_iam_policy" "dynamo_access" {
-  name        = "${aws_dynamodb_table.my_dynamo_table.name}-access"
-  description = "Access to the ${aws_dynamodb_table.my_dynamo_table.name} DynamoDB table"
+  name        = "${aws_dynamodb_table.jtbt2-fav-color-dev.name}-access"
+  description = "Access to the ${jtbt2-fav-color-dev.my_dynamo_table.name} DynamoDB table"
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -110,8 +110,8 @@ resource "aws_iam_policy" "dynamo_access" {
           "dynamodb:DeleteItem"
         ],
         Resource = [
-          aws_dynamodb_table.my_dynamo_table.arn,
-          "${aws_dynamodb_table.my_dynamo_table.arn}/index/*"
+          aws_dynamodb_table.jtbt2-fav-color-dev.arn,
+          "${aws_dynamodb_table.jtbt2-fav-color-dev.arn}/index/*"
         ]
       }
     ]
