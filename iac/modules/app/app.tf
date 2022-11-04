@@ -94,7 +94,7 @@ resource "aws_dynamodb_table" "jtbt2-fav-color-dev" {
 }
 resource "aws_iam_policy" "dynamo_access" {
   name        = "${aws_dynamodb_table.jtbt2-fav-color-dev.name}-access"
-  description = "Access to the ${jtbt2-fav-color-dev.my_dynamo_table.name} DynamoDB table"
+  description = "Access to the ${aws_dynamodb_table.jtbt2-fav-color-dev.name} DynamoDB table"
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
