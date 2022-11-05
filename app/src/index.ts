@@ -15,4 +15,4 @@ async function run (): Promise<void> {
 
 run()
   .then(r => {})
-  .catch(err => logger.error({ err }, 'Error in running app'))
+  .catch(err => logger.error({ err }, 'Error in running app!'))
