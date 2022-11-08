@@ -14,6 +14,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.204.0",
+    "@aws-sdk/lib-dynamodb": "^3.204.0",
     "@byu-oit/express-logger": "^0.3.6",
     "@byu-oit/logger": "^0.3.14",
     "aws-sdk": "^2.1250.0",
