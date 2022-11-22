@@ -7,10 +7,12 @@ import foo from './routes/foo'
 import { LoggerMiddleware } from '@byu-oit/express-logger'
 import main from './routes/main'
 import byuId from './routes/byuId'
+import cors from 'cors'
 
 export default async function server (): Promise<Application> {
   const app = express()
 
+  app.use(cors())
   app.use('/', express.json())
 
   // Health check
