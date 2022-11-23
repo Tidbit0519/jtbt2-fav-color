@@ -1,8 +1,7 @@
 import { RouteControllerMap } from 'openapi-enforcer-middleware'
 import { Request, Response } from 'express'
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
-import { DynamoDBDocumentClient, ScanCommand, PutCommand, DeleteCommand, GetCommand } from '@aws-sdk/lib-dynamodb'
-import {mockClient} from 'aws-sdk-client-mock';
+import { DynamoDBDocumentClient, ScanCommand } from '@aws-sdk/lib-dynamodb'
 
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION ?? 'us-west-2',
@@ -16,7 +15,7 @@ export default function (): RouteControllerMap {
     async listFavoriteColors (req: Request, res: Response) {
       const output = await ddbDocClient.send(
         new ScanCommand({
-          TableName: 'jtbt2-fav-color-dev',
+          TableName: 'jtbt2-fav-color-dev'
         })
       )
       // ddbBMock.on(ScanCommand).resolves({
@@ -27,27 +26,27 @@ export default function (): RouteControllerMap {
         console.log(output.Items)
       } else {
         res.enforcer?.send([{
-          result: "There are no favorite colors yet."
+          result: 'There are no favorite colors yet.'
         }])
       }
     },
     async addFavoriteColor (req: Request, res: Response) {
-      const userFavoriteColor: string = req.enforcer?.body.favoriteColor
-      const byuId: string = req.enforcer?.body.byuId
-      const name: string = req.enforcer?.body.name
+      // const userFavoriteColor: string = req.enforcer?.body.favoriteColor
+      // const byuId: string = req.enforcer?.body.byuId
+      // const name: string = req.enforcer?.body.name
       // ddbBMock.on(PutCommand).resolves({
       //   Attributes: {"result" : 'Mocked'}
       // })
-      const output = await ddbDocClient.send(
-        new PutCommand({
-          TableName: 'jtbt2-fav-color-dev',
-          Item: {
-            byuId: byuId,
-            favoriteColor: userFavoriteColor,
-            name: name
-          }
-        })
-      )
+      // const output = await ddbDocClient.send(
+      //   new PutCommand({
+      //     TableName: 'jtbt2-fav-color-dev',
+      //     Item: {
+      //       byuId: byuId,
+      //       favoriteColor: userFavoriteColor,
+      //       name: name
+      //     }
+      //   })
+      // )
       res.enforcer?.send({
         result: 'Successfully added to database.'
       })

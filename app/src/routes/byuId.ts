@@ -2,7 +2,6 @@ import { RouteControllerMap } from 'openapi-enforcer-middleware'
 import { Request, Response } from 'express'
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocumentClient, GetCommand, UpdateCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb'
-import {mockClient} from 'aws-sdk-client-mock';
 
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION ?? 'us-west-2',
@@ -19,12 +18,11 @@ export default function (): RouteControllerMap {
       //   Item:  { "result" : 'Mocked' }
       // })
       const output = await ddbDocClient.send(new GetCommand({
-          TableName: 'jtbt2-fav-color-dev',
-          Key: {
-            byuId: id
-          }
-        })
-      )
+        TableName: 'jtbt2-fav-color-dev',
+        Key: {
+          byuId: id
+        }
+      }))
       if (output.Item !== undefined) {
         const color = output.Item.favoriteColor
         const name = output.Item.name
