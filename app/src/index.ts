@@ -20,7 +20,7 @@ async function run (): Promise<void> {
   })
   const ddbDocClient = DynamoDBDocumentClient.from(client)
   const response = await ddbDocClient.send(new ScanCommand({ TableName: 'jtbt2-fav-color-dev' }))
-  logger.info({ response }, 'DynamoDB response')
+  logger.info({ response }, 'DynamoDB response!!!')
 }
 
 run()
