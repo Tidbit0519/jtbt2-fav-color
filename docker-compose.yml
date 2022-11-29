@@ -19,8 +19,8 @@ services:
       - dynamodb-local
     environment:
       NODE_ENV: local
-      DYNAMODB_ENDPOINT: 'http://localhost:8000'
-      AWS_REGION: us-west-2
+      env_file:
+        - .env
 
 # You can include a postgres docker image to mimic your relational RDS database locally
 # or use the amazon/dynamodb-local image to mimic a dynamo db table locally

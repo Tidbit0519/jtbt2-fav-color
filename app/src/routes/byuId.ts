@@ -14,15 +14,14 @@ export default function (): RouteControllerMap {
   return {
     async getFavoriteColor (req: Request, res: Response) {
       const id = req.enforcer?.params.byuId
-      // ddbBMock.on(GetCommand).resolves({
-      //   Item:  { "result" : 'Mocked' }
-      // })
-      const output = await ddbDocClient.send(new GetCommand({
-        TableName: 'jtbt2-fav-color-dev',
-        Key: {
-          byuId: id
-        }
-      }))
+      const output = await ddbDocClient.send(
+        new GetCommand({
+          TableName: 'jtbt2-fav-color-dev',
+          Key: {
+            byuId: id
+          }
+        })
+      )
       if (output.Item !== undefined) {
         const color = output.Item.favoriteColor
         const name = output.Item.name
@@ -32,17 +31,13 @@ export default function (): RouteControllerMap {
         })
       } else {
         res.enforcer?.send({
-          message: 'ID invalid or not found. Try again later'
+          message: 'ID not found. Please check and try again.'
         })
       }
     },
-
     async updateFavoriteColor (req: Request, res: Response) {
       const id = req.enforcer?.params.byuId
       const favoriteColor = req.enforcer?.body.favoriteColor
-      // ddbBMock.on(UpdateCommand).resolves({
-      //   Attributes: {"result" : 'Mocked'}
-      // })
       await ddbDocClient.send(
         new UpdateCommand({
           TableName: 'jtbt2-fav-color-dev',
@@ -59,7 +54,6 @@ export default function (): RouteControllerMap {
         result: 'Item successfully updated.'
       })
     },
-
     async removeFavoriteColor (req: Request, res: Response) {
       const id = req.enforcer?.params.byuId
       const output = await ddbDocClient.send(
@@ -70,9 +64,6 @@ export default function (): RouteControllerMap {
           }
         })
       )
-      // ddbBMock.on(DeleteCommand).resolves({
-      //   Attributes: {"result" : 'Mocked'}
-      // })
       if (output.ConsumedCapacity === undefined) {
         res.status(200).enforcer?.send({
           result: 'Item successfully deleted.'
