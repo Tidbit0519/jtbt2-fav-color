@@ -188,9 +188,12 @@ jobs:
         uses: byu-oit/github-action-start-standard-change@v1
         id: start-standard-change
         with:
-          client-key: ${{ secrets[matrix.env.rfc_key_name] }}
-          client-secret: ${{ secrets[matrix.env.rfc_secret_name] }}
-          template-id: ${{ matrix.env.rfc_template_id }}
+          client-key: ${{ env.std_change_key }}
+          client-secret: ${{ env.std_change_secret }}
+          template-id: ${{ env.template_id }}
+#          client-key: ${{ secrets[matrix.env.rfc_key_name] }}
+#          client-secret: ${{ secrets[matrix.env.rfc_secret_name] }}
+#          template-id: ${{ matrix.env.rfc_template_id }}
 
       - name: Terraform Apply
         working-directory: ${{ matrix.env.tf_working_dir }}
